@@ -8,7 +8,7 @@ app = express();
 port = process.env.PORT || 5000
 
 
-//middleware 
+//middleware to connect application
 app.use(cors());
 app.use(express.json());
 
