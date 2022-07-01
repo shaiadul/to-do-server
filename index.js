@@ -57,7 +57,7 @@ async function run() {
       const result = await listCollection.deleteOne(query);
       res.send(result);
     })
-    //list PUT api
+    //list update api
     app.put("/list/:id", async (req, res) => {
       const { id } = req.params;
       const newText = req.body;
