@@ -93,13 +93,13 @@ async function run() {
     // posting completed task
     app.post("/completed", async (req, res) => {
       const completed = req.body;
-      const result = await completedCollection.insertOne(completed);
+      const result = await completeCollection.insertOne(completed);
       res.send(result);
     });
     // all complete api
     app.get('/completed', async (req, res) => {
       const query = {};
-      const cursor = completedCollection.find(query);
+      const cursor = completeCollection.find(query);
       const completed = await cursor.toArray();
       res.send(completed);
     });
