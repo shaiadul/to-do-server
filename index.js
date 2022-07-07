@@ -25,6 +25,7 @@ async function run() {
   try {
     await client.connect();
     const listCollection = client.db("ToDoList").collection("list");
+    const completeCollection = client.db("ToDoList").collection("completed");
     console.log('mongodb connected');
 
 
@@ -75,8 +76,36 @@ async function run() {
       );
       res.send(result);
     });
+    // _________________________________________________
+    // checkbox and complete task
+    app.patch("/Checkbox/:id", async (req, res) => {
+      const data = req.params.CheckID;
+      const id = { _id: ObjectId(data) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          Checkbox: true,
+        },
+      };
+      const result = await completeCollection.updateOne(id, updateDoc, options);
+      res.send(result);
+    });
+    // posting completed task
+    app.post("/completed", async (req, res) => {
+      const completed = req.body;
+      const result = await completedCollection.insertOne(completed);
+      res.send(result);
+    });
+    // all complete api
+    app.get('/completed', async (req, res) => {
+      const query = {};
+      const cursor = completedCollection.find(query);
+      const completed = await cursor.toArray();
+      res.send(completed);
+    });
 
   }
+
   // --------------end-------------
 
 
