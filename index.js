@@ -35,7 +35,7 @@ async function run() {
     })
     // list get
     app.get("/list", async (req, res) => {
-      const list = await listCollection.find({}).toArray();
+      const list = await (await listCollection.find({}).toArray()).reverse();
       res.send(list);
     });
     // list Post api 
